@@ -2,6 +2,7 @@ package com.websystique.springmvc;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.security.crypto.codec.Base64;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.nandulabs.springmvc.model.User;
@@ -120,7 +122,7 @@ public class SpringRestClient {
 		restTemplate.exchange(REST_SERVICE_URI + "/user/", HttpMethod.DELETE, request, User.class);
 	}
 
-	public static void fetchFile() throws IOException {
+	public static void fetchFile() throws IOException, RestClientException, URISyntaxException {
 
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.getMessageConverters().add(new ByteArrayHttpMessageConverter());
@@ -131,17 +133,18 @@ public class SpringRestClient {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "Basic " + base64Credentials);
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM));
-
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
+		
 		ResponseEntity<byte[]> response = restTemplate.exchange(REST_SERVICE_URI + "/user/csv", HttpMethod.GET, entity,
 				byte[].class);
 
 		if (response.getStatusCode() == HttpStatus.OK) {
-			Files.write(Paths.get("D:\\test\\test.csv"), response.getBody());
+			Files.createFile(Paths.get("D:\\test\\test.csv"));
+			Files.write(Paths.get("D:\\test\\test.csv")	, response.getBody());
 		}
 	}
 
-	public static void main(String args[]) throws IOException {
+	public static void main(String args[]) throws IOException, RestClientException, URISyntaxException {
 
 		listAllUsers();
 		/*

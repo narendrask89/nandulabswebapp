@@ -108,29 +108,20 @@ public class AppRestController {
 		return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 	}
 
-	@RequestMapping(value = "/user/csv", produces = "text/csv")
+	@RequestMapping(value = "/user/csv", produces = { MediaType.APPLICATION_OCTET_STREAM_VALUE })
 	public void findCities(HttpServletResponse response) throws IOException {
 
 		List<User> users = (List<User>) userService.findAllUsers();
 
-		WriteCsvToResponse.writeUsers(response.getWriter(), users);
-
-		// Get your file stream from wherever.
-		String str = "1,test,41,452336.2";
-
-		// convert String into InputStream
-		InputStream myStream = new ByteArrayInputStream(str.getBytes());
-
 		// Set the content type and attachment header.
 		response.addHeader("Content-disposition", "attachment;filename=test.csv");
-		response.setContentType("text/csv");
+		response.setContentType( MediaType.APPLICATION_OCTET_STREAM_VALUE);
 
-		// Copy the stream to the response's output stream.
-		IOUtils.copy(myStream, response.getOutputStream());
-		response.flushBuffer();
+		WriteCsvToResponse.writeUsers(response.getWriter(), users);
+
 	}
 
-	@RequestMapping(value = "/user/csv/{id}", produces = "text/csv")
+	@RequestMapping(value = "/user/csv/{id}", produces = { MediaType.APPLICATION_OCTET_STREAM_VALUE })
 	public void findCity(@PathVariable Long id, HttpServletResponse response) throws IOException {
 
 		User user = userService.findById(id);
