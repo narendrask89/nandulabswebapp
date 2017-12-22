@@ -31,7 +31,7 @@ public class SpringRestClient {
 	 * user-credentials.
 	 */
 	private static HttpHeaders getHeaders() {
-		String plainCredentials = "narendra:narendra";
+		String plainCredentials = "narendra:p^tXMTH#&GH";
 		String base64Credentials = new String(Base64.encode(plainCredentials.getBytes()));
 
 		HttpHeaders headers = new HttpHeaders();
@@ -127,7 +127,7 @@ public class SpringRestClient {
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.getMessageConverters().add(new ByteArrayHttpMessageConverter());
 
-		String plainCredentials = "narendra:narendra";
+		String plainCredentials = "narendra:p^tXMTH#&GH";
 		String base64Credentials = new String(Base64.encode(plainCredentials.getBytes()));
 		
 		HttpHeaders headers = new HttpHeaders();
