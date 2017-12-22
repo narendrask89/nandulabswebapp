@@ -1,4 +1,4 @@
-package com.websystique.springmvc;
+package com.nandulabs.springmvc;
 
 import java.io.IOException;
 import java.net.URI;
@@ -24,7 +24,7 @@ import com.nandulabs.springmvc.model.User;
 
 public class SpringRestClient {
 
-	public static final String REST_SERVICE_URI = "http://localhost:8181/springbootrestapi";
+	public static final String REST_SERVICE_URI = "https://localhost:8443/springbootrestapi";
 
 	/*
 	 * Add HTTP Authorization header, using Basic-Authentication to send
@@ -83,7 +83,7 @@ public class SpringRestClient {
 	private static void createUser() {
 		System.out.println("\nTesting create User API----------");
 		RestTemplate restTemplate = new RestTemplate();
-		User user = new User(0, "Sarah", 51, 134);
+		User user = new User(0, "Narendra", 51, 134);
 		HttpEntity<Object> request = new HttpEntity<Object>(user, getHeaders());
 		URI uri = restTemplate.postForLocation(REST_SERVICE_URI + "/user/", request, User.class);
 		System.out.println("Location : " + uri.toASCIIString());
@@ -95,7 +95,7 @@ public class SpringRestClient {
 	private static void updateUser() {
 		System.out.println("\nTesting update User API----------");
 		RestTemplate restTemplate = new RestTemplate();
-		User user = new User(1, "Tomy", 33, 70000);
+		User user = new User(1, "Sahu", 33, 70000);
 		HttpEntity<Object> request = new HttpEntity<Object>(user, getHeaders());
 		ResponseEntity<User> response = restTemplate.exchange(REST_SERVICE_URI + "/user/1", HttpMethod.PUT, request,
 				User.class);
