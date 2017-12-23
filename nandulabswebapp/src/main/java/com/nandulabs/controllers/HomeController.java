@@ -1,9 +1,14 @@
 package com.nandulabs.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nandulabs.model.StatusUpdate;
@@ -25,22 +30,23 @@ public class HomeController {
 		return "app.about";
 	}
 
-	@RequestMapping(value = "/addstatus", method = RequestMethod.GET)
-	public ModelAndView addStatus(ModelAndView model) {
-		StatusUpdate statusUpdate = new StatusUpdate();
-		
+	@GetMapping(value = "/addstatus")
+	public ModelAndView addStatus(ModelAndView model, @ModelAttribute("statusUpdate")StatusUpdate statusUpdate) {
+
 		StatusUpdate latestStatusUpdate = this.statusUpdateService.getLatest();
 		model.getModel().put("latestStatusUpdate", latestStatusUpdate);
 		
-		model.getModel().put("statusUpdate", statusUpdate);
 		model.setViewName("app.addstatus");
 		return model;
 	}
 
-	@RequestMapping(value = "/addstatus", method = RequestMethod.POST)
-	public ModelAndView addStatus(ModelAndView model, StatusUpdate statusUpdate) {
+	@PostMapping(value = "/addstatus")
+	public ModelAndView addStatus(ModelAndView model, @Valid StatusUpdate statusUpdate, BindingResult result) {
 		
-		this.statusUpdateService.save(statusUpdate);
+		if(!result.hasErrors()) {
+			this.statusUpdateService.save(statusUpdate);
+			model.getModel().put("statusUpdate", new StatusUpdate());
+		}
 		
 		StatusUpdate latestStatusUpdate = this.statusUpdateService.getLatest();
 		model.getModel().put("latestStatusUpdate", latestStatusUpdate);

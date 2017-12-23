@@ -10,7 +10,10 @@
 				<div class="panel-title">Add a Status Update</div>
 			</div>
 			<div class="panel-body">
-				<form:form commandName="statusUpdate">
+				<form:form modelAttribute="statusUpdate">
+					<div class="errors">
+						<form:errors path="text" />
+					</div>
 					<div class="form-group">
 						<form:textarea path="text" name="text" rows="10" cols="50"></form:textarea>
 					</div>
@@ -20,7 +23,9 @@
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<div class="panel-title"><fmt:formatDate value="${latestStatusUpdate.added}" type="both"/></div>
+				<div class="panel-title">
+					<fmt:formatDate value="${latestStatusUpdate.added}" type="both" />
+				</div>
 			</div>
 			<div class="panel-body">
 				<c:out value="${latestStatusUpdate.text}"></c:out>
