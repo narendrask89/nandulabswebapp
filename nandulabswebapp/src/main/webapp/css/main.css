@@ -15,18 +15,41 @@
 	font-weight: bold;
 }
 
-.navbar>.container>.navbar-header>a{
+.navbar>.container>.navbar-header>a {
 	background: none;
 	color: white;
 	font-weight: bold;
 }
 
-.panel>.panel-heading{
+.navbar-default .navbar-nav>.open>a {
+	background: none !important;
+	color: yellow;
+}
+
+.navbar-default .navbar-nav>.open>a:focus {
+	color: white;
+}
+
+.panel>.panel-heading {
 	background-color: teal;
 	color: white;
 	font-weight: bold;
 }
 
-.errors{
-	color:red;
+.errors {
+	color: red;
+}
+
+.pagination {
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+.homepage-status {
+	text-align: center;
+	margin-top: 30px;
+	font-size: larger;
+}
+.edit-links{
+	margin-top: 5px;
 }

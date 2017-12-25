@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<c:set var="contextRoot" value="${pageContext.request.contextPath}"/>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <title><tiles:insertAttribute name="title" /></title>
 <!-- Bootstrap -->
 <link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +42,13 @@
 					<li><a href="${contextRoot}/about">About</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="${contextRoot}/addstatus">Add Status</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Actions <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="${contextRoot}/addstatus">Add Status</a></li>
+							<li><a href="${contextRoot}/viewstatus">View Status</a></li>
+						</ul></li>
 				</ul>
 			</div>
 		</div>

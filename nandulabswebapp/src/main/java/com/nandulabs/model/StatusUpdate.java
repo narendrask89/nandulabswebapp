@@ -1,5 +1,6 @@
 package com.nandulabs.model;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity(name = "Status")
 @Table(name = "STATUS_UPDATE")
@@ -30,6 +33,7 @@ public class StatusUpdate {
 
 	@Column(name = "ADDED_DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="yyyy/MM/dd  hh:mm:ss")
 	private Date added;
 
 	@PrePersist

@@ -9,7 +9,6 @@
 			<div class="panel-heading">
 				<div class="panel-title">Add a Status Update</div>
 			</div>
-			<div class="panel-body">
 				<form:form modelAttribute="statusUpdate">
 					<div class="errors">
 						<form:errors path="text" />
@@ -19,7 +18,6 @@
 					</div>
 					<input type="submit" name="submit" value="Submit">
 				</form:form>
-			</div>
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -28,9 +26,11 @@
 				</div>
 			</div>
 			<div class="panel-body">
-				<c:out value="${latestStatusUpdate.text}"></c:out>
+				${latestStatusUpdate.text}
 			</div>
 		</div>
 	</div>
 </div>
 
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea',plugin:'link' });</script>
