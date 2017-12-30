@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,21 +42,33 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="${contextRoot}/">Home</a></li>
 					<li><a href="${contextRoot}/about">About</a></li>
+					<li><a href="${contextRoot}/register">Register</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Actions <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="${contextRoot}/addstatus">Add Status</a></li>
-							<li><a href="${contextRoot}/viewstatus">View Status</a></li>
-						</ul></li>
+					<sec:authorize access="!isAuthenticated()">
+						<li><a href="${contextRoot}/login">Login</a></li>
+					</sec:authorize>
+					<sec:authorize access="isAuthenticated()">
+						<li><a href="javascript:$('#logoutForm').submit();">Logout</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Actions <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="${contextRoot}/addstatus">Add Status</a></li>
+								<li><a href="${contextRoot}/viewstatus">View Status</a></li>
+							</ul></li>
+					</sec:authorize>
 				</ul>
 			</div>
 		</div>
 	</nav>
 	<tiles:insertAttribute name="content" />
 
+	<c:set var="logoutUrl" value="/logout" />
+	<form action="${logoutUrl}" method="post" id="logoutForm">
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}">
+	</form>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script

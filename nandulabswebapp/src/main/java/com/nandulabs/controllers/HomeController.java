@@ -27,6 +27,11 @@ public class HomeController {
 	public String about() {
 		return "app.about";
 	}
+	
+	@RequestMapping("/register")
+	public String register() {
+		return "app.register";
+	}
 
 	
 }

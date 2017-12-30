@@ -1,6 +1,5 @@
 package com.nandulabs.model;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.persistence.Column;
