@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.nandulabs.service.UserService;
 
@@ -15,7 +16,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserService userService;
-	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		//@formatter:off
@@ -28,8 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						"/css/*",
 						"/image/*")
 				.permitAll()
-			.anyRequest()
-				.authenticated()
+			.antMatchers("/addstatus","/editstatus","deletestatus","viewstatus")
+				.hasRole("ADMIN")
 				.and()
 				.formLogin()
 					.loginPage("/login")
@@ -52,10 +55,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.roles("USER");		
 		//@formatter:on
 	}
-	
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userService);
+		auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
 	}
 }

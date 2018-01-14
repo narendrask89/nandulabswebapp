@@ -42,14 +42,16 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="${contextRoot}/">Home</a></li>
 					<li><a href="${contextRoot}/about">About</a></li>
-					<li><a href="${contextRoot}/register">Register</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<sec:authorize access="!isAuthenticated()">
 						<li><a href="${contextRoot}/login">Login</a></li>
+						<li><a href="${contextRoot}/register">Register</a></li>
 					</sec:authorize>
 					<sec:authorize access="isAuthenticated()">
 						<li><a href="javascript:$('#logoutForm').submit();">Logout</a></li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">Actions <span class="caret"></span></a>

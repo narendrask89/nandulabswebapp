@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nandulabs.model.SiteUser;
 import com.nandulabs.model.StatusUpdate;
 import com.nandulabs.service.StatusUpdateService;
 
@@ -27,11 +28,5 @@ public class HomeController {
 	public String about() {
 		return "app.about";
 	}
-	
-	@RequestMapping("/register")
-	public String register() {
-		return "app.register";
-	}
-
 	
 }
